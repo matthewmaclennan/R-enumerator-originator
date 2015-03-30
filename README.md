@@ -6,3 +6,9 @@
 #A list of bonds broken will 
 #A list of bond rankings for potential for being broken
 #A list of the type of bond which was broken
+#
+#
+#
+#
+#Using the "." will also work for structure display, at least in MarvinSketch
+#Loop through all appropriate places for "." to go. Removal of all "." would regenerate the original molecule.
