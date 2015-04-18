@@ -17,6 +17,8 @@ AllOriginatorsList<-function(smi){
 			broken<-c(broken,paste0(substr(smi[j,],1,i),".",substr(smi[j,],i+1,nchar(smi[j,]))))
 			list1[[j]]<-broken
 		}
+#Insert here the rule for eliminating improperly placed "." symbols. Such improper "." include: [A-Za-z]+
+	list1[[j]]<-list1[[j]][-as.numeric(grep("[A-Za-z]+\\.[0-9]+|\\(\\.[A-Za-z]+|[A-Za-z]+\\.\\)|[A-Za-z]+[0-9]+\\.\\)",list1[[j]]))]
 	broken<-broken
     	}
 list1<-list1
