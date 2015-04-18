@@ -11,7 +11,21 @@
 #Program places "." character (sequentially) between all adjacent atoms in the string. Also, the ring-representative 
 #numerical characters are removed to constitute bond-breaking of atoms which are not adjacent to each other in the SMILES string
 
-originators<-(function(SMILES,all=TRUE,steps,cyclecounter=FALSE){
+AllOriginatorsList<-function(smi){
+	smi<-as.matrix(smi)
+	list1<-list(list())
+
+	for(j in length(smi)){
+
+		for(i in nchar(smi[j,])){
+
+			broken<-paste0(substr(smi[j,],1,i),".",substr(smi[j,],i+1,nchar(smi[j,]))
+
+		}
+    list1[[j]]<-broken
+	}
+
+}
 
 
 }
