@@ -1,9 +1,5 @@
 #Program to enumerate the (a)cyclic originators for a cyclic molecule based on a SMILES string.
-#
-#
-#
-#
-#originators is a function of the SMILES string or vector of strings ("SMILES"), whether all bond breaks will be considered 
+#AllOriginatorsList is a function of the SMILES string or vector of strings ("smi"), whether all bond breaks will be considered 
 #(all=TRUE), or if, all=FALSE, the number of bond breaking reactions ("steps") programmed in, 
 #and whether the steps applied are dependent on the number of cycles present in the molecule (cyclecounter=TRUE). 
 #Enumerating all originators will be considering all possible reactants. Considering only ring-breaking reactants assumes
@@ -15,17 +11,13 @@ AllOriginatorsList<-function(smi){
 	smi<-as.matrix(smi)
 	list1<-list(list())
 
-	for(j in length(smi)){
-
-		for(i in nchar(smi[j,])){
-
-			broken<-paste0(substr(smi[j,],1,i),".",substr(smi[j,],i+1,nchar(smi[j,]))
-
+	for(j in 1:length(smi)){
+		for(i in 1:nchar(smi[j,])){
+			broken<-c()
+			broken<-c(broken,paste0(substr(smi[j,],1,i),".",substr(smi[j,],i+1,nchar(smi[j,]))))
 		}
-    list1[[j]]<-broken
+	broken<-broken
+    	list1[[j]]<-broken
 	}
-
-}
-
-
+list1<-list1
 }
