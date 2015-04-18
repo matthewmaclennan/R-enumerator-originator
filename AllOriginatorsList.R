@@ -15,9 +15,9 @@ AllOriginatorsList<-function(smi){
 	for(j in 1:length(smi)){
 		for(i in 1:nchar(smi[j,])){
 			broken<-c(broken,paste0(substr(smi[j,],1,i),".",substr(smi[j,],i+1,nchar(smi[j,]))))
+			list1[[j]]<-broken
 		}
 	broken<-broken
-    	list1[[j]]<-broken
-	}
+    	}
 list1<-list1
 }
