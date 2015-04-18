@@ -10,9 +10,9 @@
 AllOriginatorsList<-function(smi){
 	smi<-as.matrix(smi)
 	list1<-list(list())
-	broken<-c()
 	
 	for(j in 1:length(smi)){
+		broken<-c()
 		for(i in 1:nchar(smi[j,])){
 			broken<-c(broken,paste0(substr(smi[j,],1,i),".",substr(smi[j,],i+1,nchar(smi[j,]))))
 			list1[[j]]<-broken
