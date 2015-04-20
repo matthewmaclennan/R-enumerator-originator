@@ -24,7 +24,7 @@ AllOriginatorsList<-function(smi){
 #Insert here the rule for eliminating improperly placed "." symbols. Such improper "." include: [A-Za-z]+
 		
 	list1[[j]]<-list1[[j]][-as.numeric(
-	grep("[A-Za-z]+\\.[0-9]+|[\\(\\=\\#]\\.[A-Za-z]+|[A-Za-z]+\\.[\\)\\=\\#]|[A-Za-z]+[0-9]+\\.\\)",
+	grep("[A-Za-z]+\\.[0-9]+|[\\(\\=\\#]\\.[A-Za-z]+|[A-Za-z]+\\.[\\)\\=\\#]|[A-Za-z]+[0-9]+\\.\\)|\\.\\.+",
 	list1[[j]]))]
 	broken<-broken
     	}
