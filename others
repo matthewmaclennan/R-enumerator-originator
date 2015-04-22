@@ -1,0 +1,3 @@
+#Must paste all smiles strings side by side separated by "\t\n" and with the following options in order that the file can
+#be parsed by OpenBabel through the command prompt.
+write.table(paste(unlist(SMILES),collapse="\t\n"),"a10.txt",row.names=F,col.names=F,quote=F)
