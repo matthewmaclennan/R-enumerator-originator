@@ -17,10 +17,10 @@ AllOriginatorsList<-function(smi){
 			broken<-c(broken,paste0(substr(smi[j,],1,i),".",substr(smi[j,],i+1,nchar(smi[j,]))))
 			brokenring<-unlist(lapply(unique(regmatches(smi,gregexpr("[0-9]",smi))[[1]]),
 				function(x) paste(unlist(strsplit(smi,x)),collapse="")))
-			db2sb<-unlist(lapply(unlist(gregexpr("=",smi)),
-				function(x) paste0(substr(smi,1,x-1),substr(smi,x+1,nchar(smi)))))
-			tb2db<-unlist(lapply(unlist(gregexpr("#",smi)),
-				function(x) paste0(substr(smi,1,x-1),substr(smi,x+1,nchar(smi)),collapse="=")))
+			db2sb<-if(grepl("=",smi)) {unlist(lapply(unlist(gregexpr("=",smi)),
+				function(x) paste0(substr(smi,1,x-1),substr(smi,x+1,nchar(smi)))))}
+			tb2db<-if(grepl("#",smi)) {unlist(lapply(unlist(gregexpr("#",smi)),
+				function(x) paste0(substr(smi,1,x-1),substr(smi,x+1,nchar(smi)),collapse="=")))}
 			list1[[j]]<-c(broken,brokenring,db2sb,tb2db)
 		}
 #Insert here the rule for eliminating improperly placed "." symbols. Such improper "." include: [A-Za-z]+
@@ -28,7 +28,6 @@ AllOriginatorsList<-function(smi){
 	list1[[j]]<-list1[[j]][-as.numeric(
 	grep("[A-Za-z]+\\.[0-9]+|[\\(\\=\\#]\\.[A-Za-z]+|[A-Za-z]+\\.[\\)\\=\\#]|[A-Za-z]+[0-9]+\\.\\)|\\.\\.+",
 	list1[[j]]))]
-	broken<-broken
     	}
 list1<-list1
 }
