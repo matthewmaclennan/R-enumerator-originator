@@ -15,8 +15,9 @@ AllOriginatorsList<-function(smi){
 		broken<-c()
 		for(i in 1:nchar(smi[j,])){
 			broken<-c(broken,paste0(substr(smi[j,],1,i),".",substr(smi[j,],i+1,nchar(smi[j,]))))
-			brokenring<-unlist(lapply(unique(regmatches(smi,gregexpr("[0-9]",smi))[[1]]),
+			brokenring<-unlist(lapply(unique(regmatches(smi,gregexpr("[0-9]|%[0-9]+",smi))[[1]]),
 				function(x) paste(unlist(strsplit(smi,x)),collapse="")))
+			ruinedring<-
 			db2sb<-if(grepl("=",smi)) {unlist(lapply(unlist(gregexpr("=",smi)),
 				function(x) paste0(substr(smi,1,x-1),substr(smi,x+1,nchar(smi)))))}
 			tb2db<-if(grepl("#",smi)) {unlist(lapply(unlist(gregexpr("#",smi)),
