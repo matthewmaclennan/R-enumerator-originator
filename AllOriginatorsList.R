@@ -19,7 +19,8 @@ AllOriginatorsList<-function(smi){
 				function(x) paste(unlist(strsplit(smi,x)),collapse="")))
 #brokenring is incomplete because when it filters out a single digit, it filters out that digit in the %[0-9]+ regex, 
 #leaving nonsense terms suhc as %0, %1, etc. A molecule with hundreds of rings will be left with %[0-9]{2}[^0-9], which
-#is still valid in SMILES syntax, but true to the structure. Need to fix this
+#is still valid in SMILES syntax, but true to the structure. Need to fix this.
+#Also, lookahead/lookbehind appears difficult to make work. Need to hash out what I want.
 			db2sb<-if(grepl("=",smi)) {unlist(lapply(unlist(gregexpr("=",smi)),
 				function(x) paste0(substr(smi,1,x-1),substr(smi,x+1,nchar(smi)))))}
 			tb2db<-if(grepl("#",smi)) {unlist(lapply(unlist(gregexpr("#",smi)),
