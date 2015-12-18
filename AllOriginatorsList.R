@@ -19,7 +19,7 @@ AllOriginatorsList<-function(smi){
 #				function(x) paste(unlist(strsplit(smi,x)),collapse="")))
 brnumbers<-unique(as.numeric(unlist(regmatches(smi,gregexpr("[0-9]|%[0-9]+",smi)))))
 brokenring<-c()
-for(i in 1:length(brnumbers)) {brokenring<-c(brokenring,gsub(brnumbers[i],"",smi))}
+for(i in 1:length(brnumbers)) {brokenring<-c(brokenring,gsub(brnumbers[i],"",smi, perl=T))}
 #brokenring is incomplete because when it filters out a single digit, it filters out that digit in the %[0-9]+ regex, 
 #leaving nonsense terms suhc as %0, %1, etc. A molecule with hundreds of rings will be left with %[0-9]{2}[^0-9], which
 #is still valid in SMILES syntax, but true to the structure. Need to fix this.
