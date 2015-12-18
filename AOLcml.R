@@ -19,7 +19,7 @@ system2("cmd.exe",input="babel -ismi \"C:/Users/Matthew S. MacLennan/Documents/s
 newsmi<-c()
 for(i in 1:length(grep("order=\\\"1\\\"/>",readLines("sn.cml")))){
   write(readLines("sn.cml")[-grep("order=\\\"1\\\"/>",readLines("sn.cml"))[i]],"if.cml")
-  system2("cmd.exe",input="babel -icml \"C:/Users/Matthew S. MacLennan/Documents/if.cml\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -h")
+  system2("cmd.exe",input="babel -icml \"C:/Users/Matthew S. MacLennan/Documents/if.cml\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -xh")
   newsmi<-c(newsmi,readLines("sn.out2"))
 }
 newsmi1<-unlist(strsplit(newsmi,"\t[#0-9]*"))
@@ -28,7 +28,7 @@ newsmi<-c()
 if(length(grep("order=\\\"2\\\"/>",readLines("sn.cml")))>0){
 for(i in 1:length(grep("order=\\\"2\\\"/>",readLines("sn.cml")))){
   write(gsub(readLines("sn.cml")[grep("order=\\\"2\\\"/>",readLines("sn.cml"))][i],gsub("order=\\\"2\\\"/>","order=\\\"1\\\"/>",readLines("sn.cml")[grep("order=\\\"2\\\"/>",readLines("sn.cml"))][i]),readLines("sn.cml")),"if.cml")
-  system2("cmd.exe",input="babel -icml \"C:/Users/Matthew S. MacLennan/Documents/if.cml\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -h")
+  system2("cmd.exe",input="babel -icml \"C:/Users/Matthew S. MacLennan/Documents/if.cml\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -xh")
   newsmi<-c(newsmi,readLines("sn.out2"))
 }
 newsmi2<-unlist(strsplit(newsmi,"\t[#0-9]*"))
@@ -37,7 +37,7 @@ newsmi2<-unlist(strsplit(newsmi,"\t[#0-9]*"))
 if(length(grep("order=\\\"3\\\"/>",readLines("sn.cml")))>0){
 for(i in 1:length(grep("order=\\\"3\\\"/>",readLines("sn.cml")))){
   write(gsub(readLines("sn.cml")[grep("order=\\\"3\\\"/>",readLines("sn.cml"))][i],gsub("order=\\\"3\\\"/>","order=\\\"2\\\"/>",readLines("sn.cml")[grep("order=\\\"3\\\"/>",readLines("sn.cml"))][i]),readLines("sn.cml")),"if.cml")
-  system2("cmd.exe",input="babel -icml \"C:/Users/Matthew S. MacLennan/Documents/if.cml\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -h")
+  system2("cmd.exe",input="babel -icml \"C:/Users/Matthew S. MacLennan/Documents/if.cml\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -xh")
   newsmi<-c(newsmi,readLines("sn.out2"))
 }
 newsmi3<-unlist(strsplit(newsmi,"\t[#0-9]*"))
