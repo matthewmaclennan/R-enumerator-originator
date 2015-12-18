@@ -8,25 +8,26 @@
 #numerical characters are removed to constitute bond-breaking of atoms which are not adjacent to each other in the SMILES string
 
 AllOriginatorsList<-function(smi){
-	smi<-as.matrix(smi)
+	
 	list1<-list(list())
 	
 	for(j in 1:length(smi)){
 		broken<-c()
-		for(i in 1:nchar(smi[j,])){
-			broken<-c(broken,paste0(substr(smi[j,],1,i),".",substr(smi[j,],i+1,nchar(smi[j,]))))
+		for(i in 1:nchar(smi[j])){
+			broken<-c(broken,paste0(substr(smi[j],1,i),".",substr(smi[j],i+1,nchar(smi[j]))))
 #			brokenring<-unlist(lapply(unique(regmatches(smi,gregexpr("[0-9]|%[0-9]+",smi))[[1]]),
 #				function(x) paste(unlist(strsplit(smi,x)),collapse="")))
 brnumbers<-unique(as.numeric(unlist(regmatches(smi,gregexpr("[0-9]|%[0-9]+",smi)))))
 brokenring<-c()
-for(i in 1:length(brnumbers)) {brokenring<-c(brokenring,gsub(brnumbers[i],"",smi, perl=T))}
+for(k in 1:length(brnumbers)) {brokenring<-c(brokenring,gsub(brnumbers[k],"",smi[j], perl=T))}
 #brokenring is incomplete because when it filters out a single digit, it filters out that digit in the %[0-9]+ regex, 
 #leaving nonsense terms suhc as %0, %1, etc. A molecule with hundreds of rings will be left with %[0-9]{2}[^0-9], which
 #is still valid in SMILES syntax, but true to the structure. Need to fix this.
 #Also, lookahead/lookbehind appears difficult to make work. Need to hash out what I want.
-			db2sb<-if(grepl("=",smi)){gsub("=","",smi)} else {""}
-			tb2db<-if(grepl("#",smi)){gsub("#","=",smi)} else {""}
+			db2sb<-if(grepl("=",smi[j])){gsub("=","",smi[j])} else {""}
+			tb2db<-if(grepl("#",smi[j])){gsub("#","=",smi[j])} else {""}
 			list1[[j]]<-c(broken,brokenring,db2sb,tb2db)
+			
 		}
 #Insert here the rule for eliminating improperly placed "." symbols. Such improper "." include: [A-Za-z]+
 		
@@ -35,5 +36,5 @@ for(i in 1:length(brnumbers)) {brokenring<-c(brokenring,gsub(brnumbers[i],"",smi
 	list1[[j]],perl=T))]
     	}
 #grep("[^[A-Za-z0-9]+\\.+[A-Za-z\\(\\[]+].*",    	
-list1<-list1
+list1<-lapply(list1,function(x) x[nchar(x)>0])
 }
