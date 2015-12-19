@@ -21,6 +21,7 @@ list1<-list()
 for(i in 1:length(grep("<molecule>",readLines("sn.cml")))){
 list1[[i]]<-readLines("sn.cml")[grep("<molecule>",readLines("sn.cml"))[i]:(grep("</molecule>",readLines("sn.cml"))[i])]
 }
+list1
 #For each entry in the list, apply the function
 newsmiall<-list()
 for(j in 1:length(list1)){
@@ -42,6 +43,7 @@ newsmi<-c()
 newsmi2<-unlist(strsplit(newsmi,"\t[#0-9]*"))
   }
 #tb2db
+newsmi<-c()
   if(length(grep("order=\\\"3\\\"/>",list1[[j]]))>0){
     for(i in 1:length(grep("order=\\\"3\\\"/>",list1[[j]]))){
   write(gsub(list1[[j]][grep("order=\\\"3\\\"/>",list1[[j]])][i],gsub("order=\\\"3\\\"/>","order=\\\"2\\\"/>",list1[[j]][grep("order=\\\"3\\\"/>",list1[[j]])][i]),list1[[j]]),"if.cml")
