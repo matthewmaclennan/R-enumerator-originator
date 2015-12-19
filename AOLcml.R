@@ -16,32 +16,42 @@ outdirfile<-"C:/Users/Matthew S. MacLennan/Documents/sn.cml"
 system2("cmd.exe",input="babel -ismi \"C:/Users/Matthew S. MacLennan/Documents/sn.smi\" -ocml \"C:/Users/Matthew S. MacLennan/Documents/sn.cml\" --separate -xm --gen3D -h")
 #find single bonds; delete sequentially; convert to smiles; store smiles string
 #break single bonds in cml file, convert to smiles which will be stored in a list
+#BREAK multi-molecule CML into list of character vectors
+list1<-list()
+for(i in 1:length(grep("<molecule>",readLines("sn.cml")))){
+list1[[i]]<-readLines("sn.cml")[grep("<molecule>",readLines("sn.cml"))[i]:(grep("</molecule>",readLines("sn.cml"))[i])]
+}
+#For each entry in the list, apply the function
+newsmiall<-list()
+for(j in 1:length(list1)){
 newsmi<-c()
-for(i in 1:length(grep("order=\\\"1\\\"/>",readLines("sn.cml")))){
-  write(readLines("sn.cml")[-grep("order=\\\"1\\\"/>",readLines("sn.cml"))[i]],"if.cml")
+for(i in 1:length(grep("order=\\\"1\\\"/>",list1[[j]]))){
+  write(list1[[j]][-grep("order=\\\"1\\\"/>",list1[[j]])[i]],"if.cml")
   system2("cmd.exe",input="babel -icml \"C:/Users/Matthew S. MacLennan/Documents/if.cml\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -xh")
   newsmi<-c(newsmi,readLines("sn.out2"))
 }
 newsmi1<-unlist(strsplit(newsmi,"\t[#0-9]*"))
 #db2sb
 newsmi<-c()
-if(length(grep("order=\\\"2\\\"/>",readLines("sn.cml")))>0){
-for(i in 1:length(grep("order=\\\"2\\\"/>",readLines("sn.cml")))){
-  write(gsub(readLines("sn.cml")[grep("order=\\\"2\\\"/>",readLines("sn.cml"))][i],gsub("order=\\\"2\\\"/>","order=\\\"1\\\"/>",readLines("sn.cml")[grep("order=\\\"2\\\"/>",readLines("sn.cml"))][i]),readLines("sn.cml")),"if.cml")
+if(length(grep("order=\\\"2\\\"/>",list1[[j]]))>0){
+for(i in 1:length(grep("order=\\\"2\\\"/>",list1[[j]]))){
+  write(gsub(list1[[j]][grep("order=\\\"2\\\"/>",list1[[j]])][i],gsub("order=\\\"2\\\"/>","order=\\\"1\\\"/>",list1[[j]][grep("order=\\\"2\\\"/>",list1[[j]])][i]),list1[[j]]),"if.cml")
   system2("cmd.exe",input="babel -icml \"C:/Users/Matthew S. MacLennan/Documents/if.cml\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -xh")
   newsmi<-c(newsmi,readLines("sn.out2"))
 }
 newsmi2<-unlist(strsplit(newsmi,"\t[#0-9]*"))
 }
 #tb2db
-if(length(grep("order=\\\"3\\\"/>",readLines("sn.cml")))>0){
-for(i in 1:length(grep("order=\\\"3\\\"/>",readLines("sn.cml")))){
-  write(gsub(readLines("sn.cml")[grep("order=\\\"3\\\"/>",readLines("sn.cml"))][i],gsub("order=\\\"3\\\"/>","order=\\\"2\\\"/>",readLines("sn.cml")[grep("order=\\\"3\\\"/>",readLines("sn.cml"))][i]),readLines("sn.cml")),"if.cml")
+if(length(grep("order=\\\"3\\\"/>",list1[[j]]))>0){
+for(i in 1:length(grep("order=\\\"3\\\"/>",list1[[j]]))){
+  write(gsub(list1[[j]][grep("order=\\\"3\\\"/>",list1[[j]])][i],gsub("order=\\\"3\\\"/>","order=\\\"2\\\"/>",list1[[j]][grep("order=\\\"3\\\"/>",list1[[j]])][i]),list1[[j]]),"if.cml")
   system2("cmd.exe",input="babel -icml \"C:/Users/Matthew S. MacLennan/Documents/if.cml\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -xh")
   newsmi<-c(newsmi,readLines("sn.out2"))
 }
 newsmi3<-unlist(strsplit(newsmi,"\t[#0-9]*"))
 }
 #save smiles strings to file
-newsmiall<-c(newsmi1,newsmi2,newsmi3)
+newsmiall[[j]]<-c(newsmi1,newsmi2,newsmi3)
+}
+newsmifull<-newsmiall
 }
