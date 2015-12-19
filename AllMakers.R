@@ -16,7 +16,7 @@ bondlist<-unlist(lapply(strsplit(bonds,"\\\""),function(x) x[2]))
 bondlistidmat<-matrix(unlist(strsplit(bondlist," ")),ncol=2,byrow=T)
 nonHatomId<-unlist(lapply(strsplit(nonHatom,"\\\""),function(x) x[2]))
 nonHatomIdBondList<-bondlistidmat[bondlistidmat[,1] %in% nonHatomId & bondlistidmat[,2] %in% nonHatomId,]
-nhaidblm<-apply(expand.grid(nonHatomId,nonHatomId),1,function(x) paste0(x[1]," ",x[2]))
+
 ###############
 newbonds<-c()
 for(i in 1:length(nonHatomId)){
@@ -32,9 +32,15 @@ newbonds
 
 }
 
-inserts<-paste0("<bond atomRefs2=\"",newbonds,"\"order=\"1\"/>")
-#
+inserts<-paste0("<bond atomRefs2=\"",newest,"\"order=\"1\"/>")
+newest<-newbonds[-(newbonds %in% apply(nonHatomIdBondList,1,function(x) paste0(x[1]," ",x[2])))]
 
+#
+for(i in 1:length(inserts)){
+	
+
+
+}
 
 
 
