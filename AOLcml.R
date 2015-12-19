@@ -25,31 +25,31 @@ list1[[i]]<-readLines("sn.cml")[grep("<molecule>",readLines("sn.cml"))[i]:(grep(
 newsmiall<-list()
 for(j in 1:length(list1)){
 newsmi<-c()
-for(i in 1:length(grep("order=\\\"1\\\"/>",list1[[j]]))){
+  for(i in 1:length(grep("order=\\\"1\\\"/>",list1[[j]]))){
   write(list1[[j]][-grep("order=\\\"1\\\"/>",list1[[j]])[i]],"if.cml")
   system2("cmd.exe",input="babel -icml \"C:/Users/Matthew S. MacLennan/Documents/if.cml\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -xh")
   newsmi<-c(newsmi,readLines("sn.out2"))
-}
+  }
 newsmi1<-unlist(strsplit(newsmi,"\t[#0-9]*"))
 #db2sb
 newsmi<-c()
-if(length(grep("order=\\\"2\\\"/>",list1[[j]]))>0){
-for(i in 1:length(grep("order=\\\"2\\\"/>",list1[[j]]))){
+  if(length(grep("order=\\\"2\\\"/>",list1[[j]]))>0){
+    for(i in 1:length(grep("order=\\\"2\\\"/>",list1[[j]]))){
   write(gsub(list1[[j]][grep("order=\\\"2\\\"/>",list1[[j]])][i],gsub("order=\\\"2\\\"/>","order=\\\"1\\\"/>",list1[[j]][grep("order=\\\"2\\\"/>",list1[[j]])][i]),list1[[j]]),"if.cml")
   system2("cmd.exe",input="babel -icml \"C:/Users/Matthew S. MacLennan/Documents/if.cml\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -xh")
   newsmi<-c(newsmi,readLines("sn.out2"))
-}
+    }
 newsmi2<-unlist(strsplit(newsmi,"\t[#0-9]*"))
-}
+  }
 #tb2db
-if(length(grep("order=\\\"3\\\"/>",list1[[j]]))>0){
-for(i in 1:length(grep("order=\\\"3\\\"/>",list1[[j]]))){
+  if(length(grep("order=\\\"3\\\"/>",list1[[j]]))>0){
+    for(i in 1:length(grep("order=\\\"3\\\"/>",list1[[j]]))){
   write(gsub(list1[[j]][grep("order=\\\"3\\\"/>",list1[[j]])][i],gsub("order=\\\"3\\\"/>","order=\\\"2\\\"/>",list1[[j]][grep("order=\\\"3\\\"/>",list1[[j]])][i]),list1[[j]]),"if.cml")
   system2("cmd.exe",input="babel -icml \"C:/Users/Matthew S. MacLennan/Documents/if.cml\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -xh")
   newsmi<-c(newsmi,readLines("sn.out2"))
-}
+    }
 newsmi3<-unlist(strsplit(newsmi,"\t[#0-9]*"))
-}
+  }
 #save smiles strings to file
 newsmiall[[j]]<-c(newsmi1,newsmi2,newsmi3)
 }
