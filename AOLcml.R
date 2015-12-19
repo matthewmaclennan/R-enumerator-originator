@@ -18,8 +18,8 @@ system2("cmd.exe",input="babel -ismi \"C:/Users/Matthew S. MacLennan/Documents/s
 #break single bonds in cml file, convert to smiles which will be stored in a list
 #BREAK multi-molecule CML into list of character vectors
 list1<-list()
-for(i in 1:length(grep("<molecule>",readLines("sn.cml")))){
-list1[[i]]<-readLines("sn.cml")[grep("<molecule>",readLines("sn.cml"))[i]:(grep("</molecule>",readLines("sn.cml"))[i])]
+for(i in 1:length(grep("<molecule",readLines("sn.cml")))){
+list1[[i]]<-readLines("sn.cml")[grep("<molecule",readLines("sn.cml"))[i]:(grep("</molecule",readLines("sn.cml"))[i])]
 }
 list1
 #For each entry in the list, apply the function
@@ -41,7 +41,7 @@ newsmi<-c()
   newsmi<-c(newsmi,readLines("sn.out2"))
     }
 newsmi2<-unlist(strsplit(newsmi,"\t[#0-9]*"))
-  }
+  } else {newsmi2<-NULL}
 #tb2db
 newsmi<-c()
   if(length(grep("order=\\\"3\\\"/>",list1[[j]]))>0){
@@ -51,7 +51,7 @@ newsmi<-c()
   newsmi<-c(newsmi,readLines("sn.out2"))
     }
 newsmi3<-unlist(strsplit(newsmi,"\t[#0-9]*"))
-  }
+  } else {newsmi3<-NULL}
 #save smiles strings to file
 newsmiall[[j]]<-c(newsmi1,newsmi2,newsmi3)
 }
