@@ -1,0 +1,7 @@
+AllMakeSmi<-function(smiles){
+    
+
+
+
+
+}
