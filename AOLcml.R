@@ -5,6 +5,7 @@
 #convert tb2db, convert to smiles
 #output fragments separately
 #save all appended
+#IF you use lapply() with this function, the indices are saved and it is nested. 
 AOLcml.R<-function(smiles){
 
 #smiles to cml with 3d coords, explicit H
