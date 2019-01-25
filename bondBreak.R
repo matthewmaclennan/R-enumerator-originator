@@ -26,3 +26,6 @@ new<-read.table(outdirfile)
 write.table(paste0(smiles,collapse="\n"),"sn.smi",col.names=F,row.names=F,quote=F)
 system2("cmd.exe",input="babel -ismi \"C:/Users/Matthew S. MacLennan/Documents/sn.smi\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -xh -h")
 smiles<-read.table(outdirfile)
+
+#include code for replacing explicit hydrogens with fluorines
+#include code for finding all combinations of polyfluorinated (partially-fluorinated) compounds
