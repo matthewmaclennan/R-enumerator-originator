@@ -3,7 +3,7 @@
 #write SMILES to file
 #Canonicalize SMILES and output fragments separately in cmd.exe openbabel; write to file
 #Reload new file into R
-bondbreak<-function(smiles,generations){
+bondbreak<-function(smiles,generations,indirfile,outdirfile){
 list1<-list()
   for(i in 1:generations){
     smiles<-AllOriginatorsList(unlist(smiles))
@@ -11,8 +11,10 @@ list1<-list()
   }
 list1
 write.table(paste0(unlist(list1),collapse="\n"),"sn.smi",col.names=F,row.names=F,quote=F)
-indirfile<-"C:/Users/Matthew S. MacLennan/Documents/sn.smi"
-outdirfile<-"C:/Users/Matthew S. MacLennan/Documents/sn.out2"
+#indirfile and outdirfile are the directories and filenames for the input and output files in the openbabel command
+indirfile<-indirfile
+outdirfile<-outdirfile
+
 #substituting indirfile with the path as character string returns error
 #system2("cmd.exe",input="babel -ismi \"C:/Users/Matthew S. MacLennan/Documents/sn.smi\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -h")
 system2("cmd.exe",input="babel -ismi \"C:/Users/Matthew S. MacLennan/Documents/sn.smi\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -xh -h")
