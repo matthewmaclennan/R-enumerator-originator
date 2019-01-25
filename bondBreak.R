@@ -14,6 +14,8 @@ write.table(paste0(unlist(list1),collapse="\n"),"sn.smi",col.names=F,row.names=F
 #indirfile and outdirfile are the directories and filenames for the input and output files in the openbabel command
 indirfile<-indirfile
 outdirfile<-outdirfile
+  #Use a holder for the 'input' option in system2() below. I want any filepath to work for this! I do not want my personal filepath to be
+#the one.
 
 #substituting indirfile with the path as character string returns error
 #system2("cmd.exe",input="babel -ismi \"C:/Users/Matthew S. MacLennan/Documents/sn.smi\" -osmi \"C:/Users/Matthew S. MacLennan/Documents/sn.out2\" --separate -xc -h")
